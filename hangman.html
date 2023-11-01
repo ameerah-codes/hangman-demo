@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>hangman demo</title>
+	</head>
+	<body>
+		<script>
+			alert("hint: they're all tech related!");
+			var words = [
+				"javascript",
+				"coding",
+				"techie",
+				"hangman",
+				"programming",
+				"framework",
+			];
+			var word = words[Math.floor(Math.random() * words.length)];
+
+			var answerArray = [];
+			for (var i = 0; i < word.length; i++) {
+				answerArray[i] = "_";
+			}
+
+			var remainingLetters = word.length;
+			var guesses = 20;
+			while (remainingLetters > 0 && guesses > 0) {
+				alert(answerArray.join(" "));
+
+				var guess = prompt("guess a letter, or click Cancel to stop playing.");
+				if (guess === null) {
+					break;
+				} else if (guess.length !== 1) {
+					alert("please enter a single letter");
+				} else {
+					guesses--;
+					guess = guess.toLowerCase();
+					for (var j = 0; j < word.length; j++) {
+						if (word[j] === guess && answerArray[j] === "_") {
+							answerArray[j] = guess;
+							remainingLetters--;
+						}
+					}
+				}
+			}
+
+			alert(answerArray.join(" "));
+			if (guesses > 0) {
+				alert("good job! the answer was " + word + ".");
+			} else {
+				alert("that's too bad! the answer was " + word + ".");
+			}
+		</script>
+	</body>
+</html>
